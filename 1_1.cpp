@@ -3,19 +3,22 @@
 #include <iostream>
 using namespace std;
 
+const int MAX_CHAR = 256;
+
 bool hasUniqueCharacters(string inputStr) {
-  bool returnVal = true;
-  unsigned int asciiMap[256] = {0};
+  // if string length in greater than 256, 
+  // some characters were repeated
+  if(inputStr.length() > MAX_CHAR)
+    return false;
+  
+  bool asciiMap[MAX_CHAR] = {false};
   for(int i = 0; i < inputStr.length(); ++i) {
-    char c = inputStr.at(i);
-    if(asciiMap[(int)c] > 0) {
-      returnVal = false;
-      break;      
-    } else {
-      ++asciiMap[(int)c];
-    }
+    if(asciiMap[int(inputStr[i])] == true)
+      return false;      
+    else
+      asciiMap[int(inputStr[i])] = true;
   }
-  return returnVal;
+  return true;
 }
 
 int main() {
